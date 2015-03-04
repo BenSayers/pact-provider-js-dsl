@@ -1,0 +1,24 @@
+{
+  "name": "pact-provider-js-dsl",
+  "version": "0.0.0",
+  "description": "Verify pacts against a provider using javascript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BenSayers/pact-provider-js-dsl.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BenSayers/pact-provider-js-dsl/issues"
+  },
+  "homepage": "https://github.com/BenSayers/pact-provider-js-dsl",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-jasmine-node": "^0.2.1"
+  }
+}
