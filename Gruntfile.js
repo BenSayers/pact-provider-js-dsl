@@ -29,19 +29,30 @@ module.exports = function (grunt) {
                 tasks: ['jasmine_node:e2e']
             }
         },
-        jasmine_node: {
+        'jasmine_node': {
             e2e: ['test/e2e'],
             unit: ['test/unit']
         },
         jsdoc2md: {
             api: {
-                src: "lib/*.js",
-                dest: "docs/API.md"
+                src: 'lib/*.js',
+                dest: 'docs/API.md'
+            }
+        },
+        jshint: {
+            options: {
+                jshintrc: '.jshintrc'
+            },
+            source: {
+                files: {
+                    src: ['lib/**/*.js', 'test/**/*.js', 'Gruntfile.js']
+                }
             }
         }
     });
 
     grunt.loadNpmTasks('grunt-bump');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-conventional-changelog');
     grunt.loadNpmTasks('grunt-jasmine-node');
@@ -49,18 +60,20 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-npm');
 
     grunt.renameTask('watch', 'grunt-contrib-watch');
-
+    grunt.registerTask('build', ['jshint:source']);
     grunt.registerTask('test', ['jasmine_node:unit', 'jasmine_node:e2e']);
     grunt.registerTask('docs', ['changelog', 'jsdoc2md']);
     grunt.registerTask('release', function(type) {
         if (!type) {
-            grunt.fail.fatal('No release type specified. You must specify patch, minor or major. For example "grunt release:patch".');
+            grunt.fail.fatal(
+                'No release type specified. You must specify patch, minor or major. For example "grunt release:patch".'
+            );
         }
-        grunt.task.run(['test', 'bump-only:' + type, 'docs', 'bump-commit', 'npm-publish']);
+        grunt.task.run(['build', 'test', 'bump-only:' + type, 'docs', 'bump-commit', 'npm-publish']);
     });
     grunt.registerTask('watch', ['grunt-contrib-watch:unit']);
     grunt.registerTask('watch-e2e', ['grunt-contrib-watch:e2e']);
 
 
-    grunt.registerTask('default', []);
+    grunt.registerTask('default', ['build', 'test']);
 };
