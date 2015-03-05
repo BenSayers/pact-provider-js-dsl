@@ -1,0 +1,27 @@
+{
+  "consumer": {
+    "name": "A Consumer"
+  },
+  "provider": {
+    "name": "A Provider"
+  },
+  "interactions": [
+    {
+      "description": "a request for hello world",
+      "provider_state": "the provider works",
+      "request": {
+        "method": "get",
+        "path": "/"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "hello": "world"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecificationVersion": "1.0.0"
+  }
+}
